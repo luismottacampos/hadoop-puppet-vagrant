@@ -12,6 +12,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.box = "hadoop2_precise64"
+  config.vm.guest = :linux
+  config.vm.hostname = dn001
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -45,6 +47,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "/User/lucampos/src/course-puppet", "/opt/puppet"
 
+  # A range of ports Vagrant can use for handling port collisions and such.
+  # Defaults to 2200..2250.
+  config.vm.usable_port_range = 2200..2250
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
@@ -75,9 +81,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   puppet.manifest_file  = "site.pp"
   # end
   
-  config.vm.provision "puppet" do |puppet|
-    puppet.manifests_path = "Puppet"
+  config.vm.provision "puppet", run: "always" do |puppet|
+    puppet.manifests_path = "~/src/ecg-puppet"
     puppet.manifests_file = "site.pp"
+    puppet.module_path = "Modules"
+    puppet.facter = {
+      "vagrant" => "1"
+    }
+    puppet.hiera_config_path = "~/src/ecg-puppet/hiera/default.yaml"
+    puppet.working_directory = "/tmp/vagrant-puppet"
+    puppet.options = "--verbose --debug"
   end
 
 end
