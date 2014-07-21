@@ -1,6 +1,13 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Vagrant Plugin to manage VB Guess Additions - works as middleware, runs
+# automagically, does the right thing for Debian and Ubuntu Boxes. Does
+# not work on windows.
+# Blog: http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/
+# Source: https://github.com/dotless-de/vagrant-vbguest 
+# # vagrant plugin install vagrant-vbguest
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
@@ -12,7 +19,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Every Vagrant virtual environment requires a box to build off of.
     node.vm.box_url = "http://files.vagrantup.com/precise64.box"
     node.vm.box = "hadoop2_precise64"
-    node.vm.guest = :linux
     node.vm.hostname = "dn001"
   
     # Disable automatic box update checking. If you disable this, then
@@ -28,12 +34,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Create a private network, which allows host-only access to the machine
     # using a specific IP.
     # node.vm.network "private_network", ip: "192.168.33.10"
-    node.vm.network "private", ip: "192.168.1.2"
+    node.vm.network "private_network", ip: "192.168.1.2"
   
     # Create a public network, which generally matched to bridged network.
     # Bridged networks make the machine appear as another physical device on
     # your network.
-    node.vm.network "public"
+    node.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
   
     # If true, then any SSH connections made will enable agent forwarding.
     # Default value: false
@@ -45,7 +51,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # the path on the guest to mount the folder. And the optional third
     # argument is a set of non-required options.
     # node.vm.synced_folder "../data", "/vagrant_data"
-    node.vm.synced_folder "/User/lucampos/src/course-puppet", "/opt/puppet"
+    node.vm.synced_folder "Puppet", "/opt/puppet"
   
     # A range of ports Vagrant can use for handling port collisions and such.
     # Defaults to 2200..2250.
@@ -73,14 +79,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
     # Puppet standalone
     node.vm.provision "puppet", run: "always" do |puppet|
-      puppet.manifests_path = "~/src/ecg-puppet"
-      puppet.manifests_file = "site.pp"
+      puppet.manifests_path = "Puppet"
       puppet.module_path = "Modules"
       puppet.facter = {
         "vagrant" => "1"
       }
-      puppet.hiera_config_path = "~/src/ecg-puppet/hiera/default.yaml"
-      puppet.working_directory = "/tmp/vagrant-puppet"
+      # puppet.hiera_config_path = "~/src/ecg-puppet/hiera/default.yaml"
+      puppet.working_directory = "/tmp"
       puppet.options = "--verbose --debug"
     end # puppet
 
