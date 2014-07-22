@@ -6,22 +6,44 @@ class cdh_hadoop_node {
 
   apt::key{ 'cloudera':
     key        => '02A818DD',
-    key_source => 'http://archive-primary.cloudera.com/cdh5/ubuntu/precise/amd64/cdh/archive.key',
+    key_source => 'http://archive-primary.cloudera.com' +
+      '/cdh5/ubuntu/precise/amd64/cdh/archive.key',
   }
 
   apt::source { 'cloudera_cdh5':
-      location => 'http://archive-primary.cloudera.com/cdh5/ubuntu/precise/amd64/cdh/',
+      location => 'http://archive-primary.cloudera.com' +
+        '/cdh5/ubuntu/precise/amd64/cdh/',
       release  => 'precise-cdh5.1.0',
       repos    => 'contrib',
       key      => '02A818DD',
   }
 
+  # Java automagical download and installation of JRE
+  apt::ppa { 'ppa:webupd8team/java': }
+
   package {
+    'debconf-utils':
+      ensure => installed;
+    'oracle-java7-installer':
+      ensure => installed;
+    'oracle-java7-set-default':
+      ensure => installed;
     # FIXME: unfold this list into the actual packages being installed
     'hadoop-conf-pseudo':
       ensure => installed;
     'flume-ng':
       ensure => installed;
+  }
+
+  # Automatically accepting the JDK License (aff...)
+  exec{ 'accept-jdk-license':
+    command => 'echo \'oracle-java7-installer ' +
+      'shared/accepted-oracle-license-v1-1 select true\' ' +
+      '| /usr/bin/debconf-set-selections',
+    before  => Package['oracle-java7-installer'],
+    require => Package['debconf-utils'],
+    onlyif  => '/usr/bin/debconf-get-selections | ' +
+      '/bin/grep -q oracle-java7-installer && /bin/false'
   }
 
   # Host entries for /etc/hosts
@@ -64,7 +86,7 @@ class cdh_hadoop_node {
       ensure => present,
       mode   => '0644',
       owner  => 'vagrant',
-      source => "puppet:///modules/${module_name}/home/vagrant/dot-ssh/cdh-key.put";
+      source => "puppet:///modules/${module_name}/home/vagrant/dot-ssh/cdh-key.pub";
     '/home/vagrant/.ssh/config':
       ensure => present,
       mode   => '0644',
