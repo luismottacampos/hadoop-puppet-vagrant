@@ -1,0 +1,18 @@
+##################################################
+# Global Defaults
+##################################################
+Host *
+    Protocol 2
+    Compression yes
+    ForwardAgent yes
+    ForwardX11 yes
+    ForwardX11Trusted yes
+    HashKnownHosts no
+    TCPKeepAlive yes
+    ServerAliveInterval 180
+    ControlMaster auto
+    ControlPath /tmp/ssh_mux_%h_%p_%r
+    GSSAPIAuthentication no
+    User vagrant
+    IdentityFile /home/vagrant/.ssh/cdh-key
+##################################################
