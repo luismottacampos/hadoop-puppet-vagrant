@@ -1,4 +1,4 @@
-# base class for nodes
+# base class for all the hosts
 class base {
 
   # /etc/hosts configuration
