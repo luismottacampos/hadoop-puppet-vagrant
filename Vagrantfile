@@ -36,7 +36,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         node.vm.provider "virtualbox" do |vb|
             vb.gui = false
             vb.customize ["modifyvm", :id, "--memory", "512"]
-        end
+
+            # # Add extra disks
+            # [0, 1, 2, 3].each do |device|
+            #     external_disk = "/tmp/hadoop-vm-disks/#{host[0]}_device#{device}.vdi"
+            #     vb.customize ['createhd', '--filename', external_disk, '--size', 10 * 1024]
+            #     vb.customize ['storageattach', :id, '--storagectl',
+            #                   'SATA Controller', '--port', 1, '--device', 0,
+            #                   '--type', 'hdd', '--medium', external_disk]
+            # end # device
+
+        end # vb
       
         # Puppet standalone
         node.vm.provision "puppet", run: "always" do |puppet|
