@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         node.vm.box_url = "http://files.vagrantup.com/precise64.box"
         node.vm.box = "hadoop2_precise64"
         node.vm.hostname = "#{host[0]}.lmc.dev"
-        node.vm.network "private_network", ip: host[1]
+        node.vm.network "private_network", ip: host[1], virtualbox__intnet: "hadoop_cluster_network"
         node.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
         config.ssh.forward_agent = true
         config.ssh.forward_x11   = true
