@@ -29,10 +29,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         node.vm.box = "hadoop2_precise64"
         node.vm.hostname = "#{host[0]}.lmc.dev"
         node.vm.network "private_network", ip: host[1], virtualbox__intnet: "hadoop_cluster_network"
-        node.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
         config.ssh.forward_agent = true
         config.ssh.forward_x11   = true
-        # node.vm.usable_port_range = 2200..2250
     
         # VirtualBox-specific
         node.vm.provider "virtualbox" do |vb|
