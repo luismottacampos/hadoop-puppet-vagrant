@@ -49,7 +49,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             "ip_addr"  => host[1]
           }
           puppet.working_directory = "/tmp"
-          puppet.options = "--verbose --debug"
+          puppet.options = "--verbose"
         end # puppet
     
       end # node

@@ -1,5 +1,27 @@
-# Class cdh_hadoop_node::ssh_keys - distribute user ssh keys
-class cdh_hadoop_node::ssh_keys {
+# base class for nodes
+class base {
+
+  # /etc/hosts configuration
+  host {
+    'elephant':
+      ensure       => present,
+      host_aliases => 'elephant.lmc.dev',
+      ip           => '192.168.1.2';
+    'tiger':
+      ensure       => present,
+      host_aliases => 'tiger.lmc.dev',
+      ip           => '192.168.1.3';
+    'horse':
+      ensure       => present,
+      host_aliases => 'horse.lmc.dev',
+      ip           => '192.168.1.4';
+    'monkey':
+      ensure       => present,
+      host_aliases => 'monkey.lmc.dev',
+      ip           => '192.168.1.5';
+  }
+
+  # SSH Keys for password-less access to the hosts
   file {
     '/home/vagrant/.ssh':
       ensure => directory,
@@ -21,4 +43,5 @@ class cdh_hadoop_node::ssh_keys {
       owner  => 'vagrant',
       source => "puppet:///modules/${module_name}/home/vagrant/dot-ssh/config";
   }
+
 }

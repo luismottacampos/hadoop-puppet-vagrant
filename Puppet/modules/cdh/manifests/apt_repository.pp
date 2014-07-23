@@ -1,6 +1,5 @@
-# Class cdh_hadoop_node::apt - configure special repositories for CDH
-class cdh_hadoop_node::apt {
-
+# Deploy APT repositories as required
+class cdh::apt_repository {
   include '::apt'
 
   apt::key{ 'cloudera':
@@ -19,5 +18,4 @@ class cdh_hadoop_node::apt {
     command => '/usr/bin/apt-get update',
     require => Apt::Source['cloudera_cdh5'],
   }
-
 }
