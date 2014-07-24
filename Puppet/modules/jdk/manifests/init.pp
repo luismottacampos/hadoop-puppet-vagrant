@@ -5,7 +5,7 @@ class jdk (
 ) {
 
   # TODO: register the java binaries with the alternatives system?
-  # TODO: Add the java binaries to the path using the "/etc/profile.d/" directory?
+  # TODO: Add the java binaries to the path?
 
   file {
     $java_home:
