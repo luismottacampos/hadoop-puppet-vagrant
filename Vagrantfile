@@ -25,8 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   hosts.each do |host|
       config.vm.define host[0] do |node|
           
-        node.vm.box_url = "http://files.vagrantup.com/precise64.box"
-        node.vm.box = "hadoop2_precise64"
+        node.vm.box = "ubuntu_precise64"
         node.vm.hostname = "#{host[0]}.lmc.dev"
         node.vm.network "private_network", ip: host[1], virtualbox__intnet: "hadoop_cluster_network"
         config.ssh.forward_agent = true
@@ -36,16 +35,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         node.vm.provider "virtualbox" do |vb|
             vb.gui = false
             vb.customize ["modifyvm", :id, "--memory", "512"]
-
-            # # Add extra disks
-            # [0, 1, 2, 3].each do |device|
-            #     external_disk = "/tmp/hadoop-vm-disks/#{host[0]}_device#{device}.vdi"
-            #     vb.customize ['createhd', '--filename', external_disk, '--size', 10 * 1024]
-            #     vb.customize ['storageattach', :id, '--storagectl',
-            #                   'SATA Controller', '--port', 1, '--device', 0,
-            #                   '--type', 'hdd', '--medium', external_disk]
-            # end # device
-
         end # vb
       
         # Puppet standalone
