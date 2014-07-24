@@ -1,6 +1,8 @@
 # node /^.+\.lmc\.dev$/ {
 node 'elephant.lmc.dev' {
-  include 'cdh::namenode'
+  class{ 'cdh::namenode':
+    zookeeper_server_id => 1;
+  }
 }
 
 node 'parrot.lmc.dev' {

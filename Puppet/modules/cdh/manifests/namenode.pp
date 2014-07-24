@@ -1,8 +1,10 @@
 # Class cdh::namenode - configures the name node service.
-class cdh::namenode {
+class cdh::namenode ( $zookeeper_server_id = None ) {
 
   class{
     'cdh::datanode':;
+    'cdh::zookeeper':
+      server_id => $zookeeper_server_id;
   }
 
   # TODO: Deploy configuration

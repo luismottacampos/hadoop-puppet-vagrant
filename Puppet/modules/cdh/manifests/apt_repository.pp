@@ -2,6 +2,8 @@
 class cdh::apt_repository {
   include '::apt'
 
+  # TODO: convert this to use the local file-based mirror and see if you can improve performance.
+
   apt::key{ 'cloudera':
     key        => '02A818DD',
     key_source => 'http://archive-primary.cloudera.com/cdh5/ubuntu/precise/amd64/cdh/archive.key',
