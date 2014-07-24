@@ -1,0 +1,29 @@
+############# config ##################
+#
+set base_path    /vagrant/Repository
+#
+# if you change the base path you must create the directories below with write privlages
+#
+# set mirror_path  $base_path/mirror
+# set skel_path    $base_path/skel
+# set var_path     $base_path/var
+# set cleanscript $var_path/clean.sh
+set defaultarch amd64
+set nthreads     20
+set tilde 0
+#
+############# end config ##############
+
+deb http://archive-primary.cloudera.com/cdh5/ubuntu/precise/amd64/cdh/ precise-cdh5.1.0 contrib
+# deb http://uk.archive.ubuntu.com/ubuntu/ precise main restricted
+# deb http://uk.archive.ubuntu.com/ubuntu/ precise-updates main restricted
+# deb http://uk.archive.ubuntu.com/ubuntu/ precise universe
+# deb http://uk.archive.ubuntu.com/ubuntu/ precise-updates universe
+# deb http://uk.archive.ubuntu.com/ubuntu/ precise multiverse
+# deb http://uk.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+# deb http://uk.archive.ubuntu.com/ubuntu/ precise-backports main restricted universe multiverse
+# deb http://security.ubuntu.com/ubuntu precise-security main restricted
+# deb http://security.ubuntu.com/ubuntu precise-security universe
+# deb http://security.ubuntu.com/ubuntu precise-security multiverse
+
+clean http://archive.ubuntu.com/ubuntu
