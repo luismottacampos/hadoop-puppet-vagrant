@@ -20,6 +20,6 @@ class jdk (
     command => "tar xzCf ${java_home} ${java_tarball}",
     path    => ['/bin', '/usr/bin'],
     require => File[$java_home],
-    onlyif  => "/usr/bin/test '! -d ${java_home}/jdk1.7.0_65'"
+    onlyif  => "/usr/bin/test ! -d '${java_home}/jdk1.7.0_65'"
   }
 }
