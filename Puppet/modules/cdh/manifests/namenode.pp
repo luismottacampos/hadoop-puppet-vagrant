@@ -26,24 +26,19 @@ class cdh::namenode ( $zookeeper_server_id = None ) {
         File['/etc/hadoop/conf.production/core-site.xml'],
         File['/etc/hadoop/conf.production/hdfs-site.xml']
       ];
-    'format-hfds':
+    'format-hdfs':
       command => '/bin/su -s /bin/bash -c "/usr/bin/hadoop namenode -format" - hdfs',
       onlyif  => '/usr/bin/test ! -e /var/lib/hadoop-hdfs/cache/hdfs/dfs/name',
-      before  => Service['hadoop-hdfs-namenode'],
       require => [
         File['/etc/hadoop/conf.production/core-site.xml'],
         File['/etc/hadoop/conf.production/hdfs-site.xml']
       ];
   }
 
-
   service {
     'hadoop-hdfs-namenode':
-      ensure  => stopped,
-      require => [
-        File['/etc/hadoop/conf.production/core-site.xml'],
-        File['/etc/hadoop/conf.production/hdfs-site.xml']
-      ];
+      ensure  => running,
+      require => Exec['format-hdfs'];
   }
 
   file {
