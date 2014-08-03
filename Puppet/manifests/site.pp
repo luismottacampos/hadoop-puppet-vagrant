@@ -5,7 +5,14 @@ node 'elephant.lmc.dev' {
   }
 }
 
-node 'parrot.lmc.dev' {
-  # A CDH APT Repository mirror
-  include 'apt_mirror'
+node 'tiger.lmc.dev' {
+  include 'cdh::datanode'
+}
+
+node 'horse.lmc.dev' {
+  include 'cdh::datanode'
+}
+
+node 'monkey.lmc.dev' {
+  include 'cdh::datanode'
 }

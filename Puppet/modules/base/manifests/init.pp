@@ -1,25 +1,7 @@
 # base class for all the hosts
 class base {
 
-  # /etc/hosts configuration
-  host {
-    'elephant':
-      ensure       => present,
-      host_aliases => 'elephant.lmc.dev',
-      ip           => '192.168.1.2';
-    'tiger':
-      ensure       => present,
-      host_aliases => 'tiger.lmc.dev',
-      ip           => '192.168.1.3';
-    'horse':
-      ensure       => present,
-      host_aliases => 'horse.lmc.dev',
-      ip           => '192.168.1.4';
-    'monkey':
-      ensure       => present,
-      host_aliases => 'monkey.lmc.dev',
-      ip           => '192.168.1.5';
-  }
+  include 'avahi'
 
   # SSH Keys for password-less access to the hosts
   file {

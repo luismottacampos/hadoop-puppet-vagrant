@@ -16,7 +16,7 @@ class cdh::apt_repository {
       key      => '02A818DD',
   }
 
-  exec { 'apt-update':
+  exec { 'cdh-apt-repository-update':
     command => '/usr/bin/apt-get update',
     require => Apt::Source['cloudera_cdh5'],
   }
