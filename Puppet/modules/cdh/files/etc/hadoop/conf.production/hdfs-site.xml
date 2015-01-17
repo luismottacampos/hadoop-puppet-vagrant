@@ -18,32 +18,25 @@
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
 <configuration>
+
   <property>
      <name>dfs.name.dir</name>
-     <value>/var/lib/hadoop-hdfs/cache/hdfs/dfs/name</value>
-  </property>
-
-  <!-- ATTENTION: remove me before you deploy other nodes -->
-  <property>
-      <name>dfs.replication</name>
-      <value>1</value>
+     <value>file:///var/lib/hadoop-hdfs/cache/hdfs/dfs/name</value>
   </property>
 
   <property>
-    <name>dfs.client.read.shortcircuit</name>
-    <value>true</value>
+     <name>dfs.namenode.rpc-address</name>
+     <value>elephant.lmc.dev:8020</value>
   </property>
+
   <property>
-    <name>dfs.client.file-block-storage-locations.timeout.millis</name>
-    <value>10000</value>
+    <name>dfs.data.dir</name>
+    <value>file:///data/hdfs</value>
   </property>
+
   <property>
-    <name>dfs.domain.socket.path</name>
-    <value>/var/run/hadoop-hdfs/dn._PORT</value>
-  </property>
-  <property>
-    <name>dfs.datanode.hdfs-blocks-metadata.enabled</name>
-    <value>true</value>
+    <name>dfs.block.size</name>
+    <value>1048576</value>
   </property>
 
 </configuration>

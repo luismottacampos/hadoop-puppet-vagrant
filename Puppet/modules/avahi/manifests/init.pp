@@ -13,25 +13,25 @@ class avahi{
 
   # /etc/hosts configuration
   host {
-    'localhost.localdomain':
+    'localhost':
       ensure       => present,
-      host_aliases => 'localhost',
+      host_aliases => 'localhost.localdomain',
       ip           => '127.0.0.1';
-    'elephant.lmc.dev':
+    'elephant':
       ensure       => present,
-      host_aliases => 'elephant',
+      host_aliases => 'elephant.lmc.dev',
       ip           => '192.168.1.2';
-    'tiger.lmc.dev':
+    'tiger':
       ensure       => present,
-      host_aliases => 'tiger',
+      host_aliases => 'tiger.lmc.dev',
       ip           => '192.168.1.3';
-    'horse.lmc.dev':
+    'horse':
       ensure       => present,
-      host_aliases => 'horse',
+      host_aliases => 'horse.lmc.dev',
       ip           => '192.168.1.4';
-    'monkey.lmc.dev':
+    'monkey':
       ensure       => present,
-      host_aliases => 'monkey',
+      host_aliases => 'monkey.lmc.dev',
       ip           => '192.168.1.5';
   }
 

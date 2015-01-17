@@ -19,7 +19,7 @@
 
 <configuration>
     <property>
-        <name>fs.defaultFS</name>
-        <value>hdfs://elephant:9000</value>
+        <name>fs.default.name</name>
+        <value>hdfs://elephant</value>
     </property>
 </configuration>
